@@ -1,11 +1,25 @@
-class radio (private var onoff: Boolean= false, //false para apagado y true para encendido
+class radio (private var estado: Boolean= false, //false para apagado y true para encendido
              private var frecuencia:Boolean = true, //true para FM, false para AM
-             private var volumen: Int =10,
-             private var estacion: Double=87.0,
-             private var estado: Boolean = false){
+             private var volumen: Int =0,
+             private var estacion: Double= 87.0){
 
-    fun getFrecuencia(): Boolean {
-        return frecuencia
+    fun getEstado():String{
+        var p: String
+        if (estado == true){
+            p = "Encendido"
+        }else{
+            p = "Apagado"
+        }
+        return p
+    }
+    fun getFrecuencia(): String {
+        var a : String
+        if (frecuencia==true){
+            a="FM"
+        }else{
+            a= "AM"
+        }
+        return a
     }
     fun getVolumen():Int{
         return volumen
@@ -15,17 +29,21 @@ class radio (private var onoff: Boolean= false, //false para apagado y true para
     }
 
 
-    fun encender(){
-        estado = true
+    fun encenderApagar(){
+        if(estado == true){
+            estado = false
+        }else if (estado == false){
+            estado=true
+        }
     }
-    fun apagar (){
-        estado = false
-    }
+
     fun cambiarFrecuencia(){
         if (frecuencia==true){
             frecuencia = false
+            estacion = 1000.0
         }else{
             frecuencia = true
+            estacion = 87.0
         }
     }
     fun subirVolumen(){
@@ -35,7 +53,10 @@ class radio (private var onoff: Boolean= false, //false para apagado y true para
         volumen = volumen - 5
     }
     fun subirEstacion(){
-
+        estacion = estacion + 0.1
+    }
+    fun bajarEstacion(){
+        estacion = estacion - 0.1
     }
 
 
