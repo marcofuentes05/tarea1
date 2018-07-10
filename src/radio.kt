@@ -52,11 +52,11 @@ class radio (private var estado: Boolean= false, //false para apagado y true par
     fun bajarVolumen(){
         volumen = volumen - 5
     }
-    fun subirEstacion(){
-        estacion = estacion + 0.1
+    fun subirEstacion(salto: Double){
+        estacion = estacion + salto
     }
-    fun bajarEstacion(){
-        estacion = estacion - 0.1
+    fun bajarEstacion(salto: Double){
+        estacion = estacion - salto
     }
 
 

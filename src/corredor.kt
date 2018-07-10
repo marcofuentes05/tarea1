@@ -1,5 +1,7 @@
 package main
 import radio
+import java.io.IOException
+
 fun main(args:Array<String>){
 
     var radio = radio()
@@ -7,16 +9,21 @@ fun main(args:Array<String>){
     var estado:String
     var estacion:Double
     var volumen:Int
-
+    var salto: Double
     estado = radio.getEstado()
     frec = radio.getFrecuencia()
     estacion = radio.getEstacion()
     volumen = radio.getVolumen()
+    var c: Boolean = true
+    println("Primero, dime ¿Cada cuánto debería saltar estaciones? (Ingresa un numero, por favor -_-)")
+    salto = readLine()!!.toDouble()
+
+
 
 
     var control : Boolean = true
     do{
-        println(imprimirMenu(estado, frec, estacion, volumen))
+        println(imprimirMenu(estado, frec, estacion, volumen, salto))
         println("¿Que opción deseas ingresar?")
 
         var respuesta: String = readLine()!!
@@ -41,22 +48,22 @@ fun main(args:Array<String>){
         } else if (respuesta == "5") {
             if (frec == "AM") {
                 if (estacion <= 1399.9) {
-                    radio.subirEstacion()
+                    radio.subirEstacion(salto)
                 }
             } else if (frec == "FM") {
                 if (estacion <= 103.9) {
-                    radio.subirEstacion()
+                    radio.subirEstacion(salto)
                 }
             }
             estacion = radio.getEstacion()
         } else if (respuesta == "6") {
             if (frec == "AM") {
                 if (estacion >= 100.1) {
-                    radio.bajarEstacion()
+                    radio.bajarEstacion(salto)
                 }
             } else if (frec == "FM") {
                 if (estacion >= 87.1) {
-                    radio.bajarEstacion()
+                    radio.bajarEstacion(salto)
                 }
             }
             estacion = radio.getEstacion()
@@ -72,7 +79,7 @@ fun main(args:Array<String>){
 
 }
 
-fun imprimirMenu(estado: String, frec: String, estacion: Double, volumen: Int): String {
+fun imprimirMenu(estado: String, frec: String, estacion: Double, volumen: Int, salto:Double): String {
     return """
      -------------------------------------
     |                                     |
@@ -87,8 +94,8 @@ fun imprimirMenu(estado: String, frec: String, estacion: Double, volumen: Int): 
     2 para cambiar de frecuencia AM/FM
     3 para subir 5 de volumen
     4 para bajar 5 de volumen
-    5 para subir 0.1 de estacion
-    6 para bajar 0.1 de estacion
+    5 para subir $salto estaciones
+    6 para bajar $salto estaciones
     7 para salir
 """
 }
